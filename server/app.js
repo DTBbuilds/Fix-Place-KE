@@ -56,25 +56,41 @@ app.use((err, req, res, next) => {
   })
 })
 
-// Connect to MongoDB only if not already connected (avoids re-connection in serverless cold starts)
-if (!mongoose.connection.readyState) {
-  mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 5000 // Fail fast if MongoDB is unreachable
-  }).then(() => {
-    console.log('✅ MongoDB connected successfully')
-  }).catch(err => {
-    console.error('❌ MongoDB connection error:', err.message)
-    // Don't crash the application in production if MongoDB fails to connect
-    if (process.env.NODE_ENV !== 'production') {
-      console.warn('The application will continue without database functionality')
+// Serverless-friendly MongoDB connection
+const connectDB = async () => {
+  // Only connect if not already connected (crucial for serverless)
+  if (mongoose.connection.readyState !== 1) {
+    try {
+      await mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        serverSelectionTimeoutMS: 5000, // Fail fast if MongoDB is unreachable
+        bufferCommands: false, // Disable command buffering for serverless
+      });
+      console.log('✅ MongoDB connected successfully');
+      return true;
+    } catch (err) {
+      console.error('❌ MongoDB connection error:', err.message);
+      // Don't crash the app in production
+      if (process.env.NODE_ENV !== 'production') {
+        console.warn('The application will continue without database functionality');
+      }
+      return false;
     }
-  })
+  }
+  return true;
+};
+
+// Connect to DB unless in a test environment
+if (process.env.NODE_ENV !== 'test') {
+  connectDB();
 
   // Add connection event listeners
-  mongoose.connection.on('disconnected', () => console.log('MongoDB disconnected'))
-  mongoose.connection.on('reconnected', () => console.log('MongoDB reconnected'))
+  mongoose.connection.on('disconnected', () => console.log('MongoDB disconnected'));
+  mongoose.connection.on('reconnected', () => console.log('MongoDB reconnected'));
 }
+
+// Export connectDB for serverless function use
+export { connectDB };
 
 export default app

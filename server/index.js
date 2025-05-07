@@ -1,5 +1,6 @@
 import app from './app.js'
 
+// For local development
 const isVercel = !!process.env.VERCEL
 
 if (!isVercel) {
@@ -7,4 +8,5 @@ if (!isVercel) {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
 }
 
+// Export the Express API for Vercel serverless functions
 export default app
