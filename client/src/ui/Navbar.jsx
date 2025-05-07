@@ -48,9 +48,9 @@ export default function Navbar() {
           <NavLink to="/contact" className={navLinkStyle}>
             <FontAwesomeIcon icon="phone" /> Contact
           </NavLink>
-          <a href="/booking" className="ml-4 bg-secondary text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors flex items-center gap-1.5">
+          <NavLink to="/booking" className="ml-4 bg-secondary text-white px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors flex items-center gap-1.5">
             <FontAwesomeIcon icon="calendar-check" /> Book Now
-          </a>
+          </NavLink>
         </nav>
       </div>
       
@@ -106,9 +106,9 @@ export default function Navbar() {
             <FontAwesomeIcon icon="phone" fixedWidth /> Contact
           </NavLink>
           <div className="p-4">
-            <a href="/booking" className="block w-full bg-secondary text-white text-center px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors flex items-center justify-center gap-1.5">
+            <NavLink to="/booking" onClick={() => setMobileMenuOpen(false)} className="block w-full bg-secondary text-white text-center px-4 py-2 rounded-md hover:bg-opacity-90 transition-colors flex items-center justify-center gap-1.5">
               <FontAwesomeIcon icon="calendar-check" /> Book Now
-            </a>
+            </NavLink>
           </div>
         </nav>
       </div>

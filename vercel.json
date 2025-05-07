@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "client/package.json",
@@ -11,30 +12,25 @@
       "src": "server/index.js",
       "use": "@vercel/node",
       "config": {
-        "maxLambdaSize": "50mb",
-        "includeFiles": [
-          "server/models/**",
-          "server/routes/**",
-          "server/app.js"
-        ]
+        "maxLambdaSize": "50mb"
       }
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "server/index.js"
+      "dest": "/server/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/client/dist/$1"
     },
     {
       "handle": "filesystem"
     },
     {
-      "src": "/(.*)",
-      "dest": "client/dist/$1"
-    },
-    {
       "src": "/.*",
-      "dest": "client/dist/index.html"
+      "dest": "/client/dist/index.html"
     }
   ]
 }

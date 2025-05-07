@@ -1,21 +1,89 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTools, faMobileAlt, faBolt, faShieldAlt, faThumbsUp, faClock, faPhoneAlt } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faTools, 
+  faMobileAlt, 
+  faBolt, 
+  faShieldAlt, 
+  faThumbsUp, 
+  faClock, 
+  faPhoneAlt,
+  faEnvelope,
+  faComment,
+  faArrowRight,
+  faMapMarkerAlt,
+  faCalendarCheck
+} from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 
 export default function Home() {
   return (
     <div className="w-full bg-gradient-to-b from-blue-50 to-white min-h-[100vh]">
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 flex flex-col items-center text-center animate-fade-in">
-        <h1 className="text-5xl font-extrabold mb-4 text-primary drop-shadow">Fix Place KE</h1>
-        <p className="text-xl mb-6 max-w-2xl mx-auto text-gray-700">Professional appliance & mobile repair services in Nairobi and Kenya. Fast, reliable, and affordable solutions for your home and business.</p>
-        <a href="/booking" className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold shadow-lg hover:bg-primary-light transition">Book a Repair</a>
-        <div className="mt-8 flex flex-wrap justify-center gap-4">
-          <a href="tel:+254712345678" className="flex items-center gap-2 text-secondary hover:underline">
-            <FontAwesomeIcon icon={faPhoneAlt} /> Call Us
-          </a>
-          <a href="https://wa.me/254712345678" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-green-600 hover:underline">
-            <FontAwesomeIcon icon={faMobileAlt} /> WhatsApp
-          </a>
+      <section className="bg-gradient-to-r from-blue-50 via-white to-blue-50 py-16 md:py-24">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center">
+            <div className="md:w-1/2 md:pr-12 mb-10 md:mb-0">
+              <div className="animate-fade-in space-y-6">
+                <h1 className="text-4xl md:text-5xl font-extrabold text-primary leading-tight">
+                  Expert Repairs,<br />
+                  <span className="text-secondary">Peace of Mind</span>
+                </h1>
+                <p className="text-lg text-gray-700 max-w-xl">
+                  Professional appliance & mobile repair services in Nairobi and across Kenya. Fast, reliable, and affordable solutions for your home and business.                  
+                </p>
+                <div className="flex flex-wrap gap-4 pt-2">
+                  <a href="/booking" className="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-md text-lg font-semibold shadow-md hover:bg-primary-light transition duration-300 transform hover:-translate-y-1">
+                    <FontAwesomeIcon icon={faCalendarCheck} /> Book a Repair
+                  </a>
+                  <a href="#contact-options" className="inline-flex items-center gap-2 bg-white text-primary border-2 border-primary px-6 py-3 rounded-md text-lg font-semibold shadow-md hover:bg-blue-50 transition duration-300">
+                    <FontAwesomeIcon icon={faPhoneAlt} /> Contact Us
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div className="md:w-1/2 flex justify-center md:justify-end">
+              <div className="bg-white rounded-xl shadow-xl p-6 md:p-8 w-full max-w-md">
+                <h2 className="text-2xl font-bold text-primary mb-4">Get in Touch</h2>
+                <div className="grid grid-cols-2 gap-4 mb-6">
+                  <a href="tel:+254712345678" className="flex flex-col items-center bg-blue-50 rounded-lg p-4 hover:bg-blue-100 transition duration-300 group">
+                    <div className="bg-primary text-white p-3 rounded-full mb-2 group-hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faPhoneAlt} size="lg" />
+                    </div>
+                    <span className="font-medium text-gray-700">Call Us</span>
+                    <span className="text-sm text-gray-500">+254 712 345 678</span>
+                  </a>
+                  <a href="https://wa.me/254712345678" target="_blank" rel="noopener noreferrer" className="flex flex-col items-center bg-green-50 rounded-lg p-4 hover:bg-green-100 transition duration-300 group">
+                    <div className="bg-green-500 text-white p-3 rounded-full mb-2 group-hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faWhatsapp} size="lg" />
+                    </div>
+                    <span className="font-medium text-gray-700">WhatsApp</span>
+                    <span className="text-sm text-gray-500">Text Us Anytime</span>
+                  </a>
+                  <a href="mailto:info@fixplaceke.com" className="flex flex-col items-center bg-red-50 rounded-lg p-4 hover:bg-red-100 transition duration-300 group">
+                    <div className="bg-red-500 text-white p-3 rounded-full mb-2 group-hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faEnvelope} size="lg" />
+                    </div>
+                    <span className="font-medium text-gray-700">Email</span>
+                    <span className="text-xs text-gray-500">info@fixplaceke.com</span>
+                  </a>
+                  <a href="#chat-bot" className="flex flex-col items-center bg-purple-50 rounded-lg p-4 hover:bg-purple-100 transition duration-300 group" id="contact-options">
+                    <div className="bg-purple-500 text-white p-3 rounded-full mb-2 group-hover:scale-110 transition duration-300">
+                      <FontAwesomeIcon icon={faComment} size="lg" />
+                    </div>
+                    <span className="font-medium text-gray-700">Live Chat</span>
+                    <span className="text-sm text-gray-500">Start Chatting</span>
+                  </a>
+                </div>
+                <div className="text-center pt-2">
+                  <a href="https://maps.google.com/?q=Nairobi,Kenya" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 text-primary hover:text-primary-dark">
+                    <FontAwesomeIcon icon={faMapMarkerAlt} /> 
+                    <span>Nairobi, Kenya</span>
+                    <FontAwesomeIcon icon={faArrowRight} size="xs" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

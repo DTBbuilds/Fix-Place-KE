@@ -8,11 +8,28 @@ const router = express.Router()
 router.post('/', async (req, res) => {
   try {
     const { name, email, phone, service, message } = req.body
+    
+    // Basic validation
+    if (!name || !email || !phone || !service) {
+      return res.status(400).json({ success: false, message: 'Missing required fields' })
+    }
+    
+    // Email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      return res.status(400).json({ success: false, message: 'Invalid email format' })
+    }
 
     // Persist to database
     const booking = await Booking.create({ name, email, phone, service, message })
 
     // Send notification email (to business owner & customer)
+    // Skip email sending if no email credentials are available
+    if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+      console.warn('Email credentials not configured, skipping email notifications')
+      return res.status(201).json({ success: true, booking, emailSent: false })
+    }
+    
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
@@ -43,6 +60,14 @@ router.post('/', async (req, res) => {
     res.status(201).json({ success: true, booking })
   } catch (error) {
     console.error('Booking error', error)
+    // More specific error messages based on error type
+    if (error.name === 'ValidationError') {
+      return res.status(400).json({ success: false, message: 'Validation error', errors: error.errors })
+    } else if (error.code === 11000) {
+      return res.status(400).json({ success: false, message: 'Duplicate entry' })
+    } else if (error.name === 'MongoServerError') {
+      return res.status(503).json({ success: false, message: 'Database error' })
+    }
     res.status(500).json({ success: false, message: 'Server error' })
   }
 })
