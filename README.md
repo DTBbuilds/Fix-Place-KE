@@ -58,7 +58,41 @@ EMAIL_PASS=your_email_password_or_app_password
 
 ## Deployment
 
-The project is ready for deployment to **Vercel** (both frontend & backend) or any Node-capable host. Each folder (`client`, `server`) has its own `package.json` and can be deployed separately.
+### Vercel Deployment (Recommended)
+
+This project is configured for seamless deployment to Vercel as a monorepo with both frontend and backend.
+
+1. **Push to GitHub**:
+   ```bash
+   git add .
+   git commit -m "Your commit message"
+   git push origin main
+   ```
+
+2. **Import to Vercel**:
+   - Go to [Vercel Dashboard](https://vercel.com/dashboard)
+   - Click "Add New" > "Project"
+   - Import your GitHub repository
+   - Keep all default settings (the project includes a `vercel.json` configuration)
+
+3. **Environment Variables**:
+   Add the following environment variables in the Vercel project settings:
+   ```
+   MONGO_URI=your_mongodb_connection_string
+   EMAIL_USER=your_email@example.com
+   EMAIL_PASS=your_email_password_or_app_password
+   ```
+
+4. **Deploy**:
+   - Click "Deploy"
+   - Vercel will automatically detect the monorepo structure and build both client and server
+
+### Alternative Deployments
+
+You can also deploy the frontend and backend separately:
+
+- **Frontend**: The `client` folder can be deployed to Netlify, GitHub Pages, or any static host.
+- **Backend**: The `server` folder can be deployed to Heroku, Railway, or any Node.js-capable host.
 
 ---
 
